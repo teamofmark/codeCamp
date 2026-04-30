@@ -79,7 +79,8 @@
             { q: "17. CSS에서 요소를 숨기는 속성은?", a: "display: none", options: ["hidden", "display: none", "opacity: 0", "visibility: hidden"] },
             { q: "18. JavaScript에서 함수를 선언하는 키워드는?", a: "function", options: ["def", "func", "function", "method"] },
             { q: "19. HTML에서 입력 필드를 만드는 태그는?", a: "input", options: ["text", "input", "form", "box"] },
-            { q: "20. CSS에서 바깥 여백을 주는 속성은?", a: "margin", options: ["padding", "margin", "space", "border"] }
+            { q: "20. CSS에서 바깥 여백을 주는 속성은?", a: "margin", options: ["padding", "margin", "space", "border"] },
+            { q: "21. 선생님의 생년월일은 언제일까요?", a: "1981.12.12", options: ["1983.12.12", "1982.12.12", "1981.12.12", "1984.12.12"] }
         ];
 
         let score = 0;
@@ -119,8 +120,8 @@
             answered++;
             if (answered === quizData.length) {
                 document.getElementById('score').innerHTML = 
-                    `퀴즈 완료!<br>점수: ${score} / 20<br>
-                    ${score >= 18 ? '올..벌칙면제 🎉😍' : score >= 14 ? '뭐해? 안들어가고 😊' : score >= 10 ? '들어 갔다 나와서 벌칙 뽑아 🥳' : '진실의 방으로😎'}`;
+                    `퀴즈 완료!<br>점수: ${score} / 21<br>
+                    ${score >= 19 ? '올..벌칙면제 🎉😍' : score >= 14 ? '뭐해? 안들어가고 😊' : score >= 10 ? '들어 갔다 나와서 벌칙 뽑아 🥳' : '진실의 방으로😎'}`;
             }
         }
         createQuiz();
