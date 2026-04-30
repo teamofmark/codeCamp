@@ -37,6 +37,7 @@
             border: none;
             border-radius: 6px;
             cursor: pointer;
+            font-size: 20px;
         }
         button:hover { background: #0055aa; }
         .correct { background: #28a745 !important; }
@@ -121,16 +122,7 @@
                     `퀴즈 완료!<br>점수: ${score} / 20<br>
                     ${score >= 18 ? '올..벌칙면제 🎉😍' : score >= 14 ? '뭐해? 안들어가고 😊' : score >= 10 ? '들어 갔다 나와서 벌칙 뽑아 🥳' : '진실의 방으로😎'}`;
             }
-            setTimeout(() => {
-                html2canvas(document.getElementById('quizContainer'), {scale: 2}).then(canvas => {
-                    const link = document.createElement('a');
-                    link.download = `퀴즈_점수_${score}점.png`;
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
-                });
-            }, 1500);
         }
-
         createQuiz();
     </script>
 </body>
