@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML/CSS/JS 기초 퀴즈 (20문제)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .quiz {
+            max-width: 700px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #222;
+        }
+        .question {
+            margin: 25px 0;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question:last-child { border-bottom: none; }
+        p { margin: 8px 0; font-size: 17px; }
+        button {
+            margin: 6px 8px 6px 0;
+            padding: 10px 20px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover { background: #0055aa; }
+        .correct { background: #28a745 !important; }
+        .wrong { background: #dc3545 !important; }
+        #score {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 30px;
+            font-weight: bold;
+            color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz">
+        <h1>HTML / CSS / JS 기초 퀴즈 (20문제)</h1>
+        <div id="questions"></div>
+        <div id="score"></div>
+    </div>
+
+    <script>
+        const quizData = [
+            { q: "1. HTML 문서의 제목을 표시하는 태그는?", a: "h1", options: ["h1", "title", "head", "header"] },
+            { q: "2. CSS에서 글자 색상을 변경하는 속성은?", a: "color", options: ["color", "text-color", "font-color", "background-color"] },
+            { q: "3. JavaScript에서 변수를 선언하는 키워드 중 하나는?", a: "모두 가능", options: ["let", "var", "const", "모두 가능"] },
+            { q: "4. 이미지 태그는?", a: "img", options: ["image", "img", "picture", "src"] },
+            { q: "5. CSS에서 테두리를 둥글게 만드는 속성은?", a: "border-radius", options: ["border-round", "border-radius", "round", "curve"] },
+            { q: "6. JQuery에서 클릭 이벤트를 추가하는 메서드는?", a: "click", options: ["onclick", "addEventListener", "click", "onClick"] },
+            { q: "7. HTML에서 링크를 만드는 태그는?", a: "a", options: ["link", "a", "href", "url"] },
+            { q: "8. CSS에서 display 속성이 아닌 것은?", a: "center", options: ["block", "inline", "flex", "center"] },
+            { q: "9. JavaScript에서 문자열을 정수형태 숫자로 바꾸는 함수는?", a: "parseInt", options: ["toNumber", "parseInt", "Number", "int"] },
+            { q: "10. HTML에서 순서가 없는 목록을 만드는 태그는?", a: "ul", options: ["list", "ul", "ol", "li"] },
+            { q: "11. CSS에서 안쪽 여백을 주는 속성은?", a: "padding", options: ["margin", "padding", "space", "border"] },
+            { q: "12. JavaScript에서 조건문과 상관없는 키워드는?", a: "when", options: ["when", "if", "case", "switch"] },
+            { q: "13. HTML에서 시맨틱 태그의 역할은?", a: "블록 레벨 컨테이너", options: ["인라인 요소", "블록 레벨 컨테이너", "이미지", "링크"] },
+            { q: "14. CSS에서 글자 크기를 바꾸는 속성은?", a: "font-size", options: ["text-size", "font-size", "size", "text"] },
+            { q: "15. JavaScript 배열의 길이를 구하는 속성은?", a: "length", options: ["size", "length", "count", "len"] },
+            { q: "16. HTML에서 테이블을 만드는 태그는?", a: "table", options: ["grid", "table", "tab", "list"] },
+            { q: "17. CSS에서 요소를 숨기는 속성은?", a: "display: none", options: ["hidden", "display: none", "opacity: 0", "visibility: hidden"] },
+            { q: "18. JavaScript에서 함수를 선언하는 키워드는?", a: "function", options: ["def", "func", "function", "method"] },
+            { q: "19. HTML에서 입력 필드를 만드는 태그는?", a: "input", options: ["text", "input", "form", "box"] },
+            { q: "20. CSS에서 바깥 여백을 주는 속성은?", a: "margin", options: ["padding", "margin", "space", "border"] }
+        ];
+
+        let score = 0;
+        let answered = 0;
+
+        function createQuiz() {
+            const container = document.getElementById('questions');
+            quizData.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'question';
+                div.innerHTML = `
+                    <p>${item.q}</p>
+                    ${item.options.map(opt => 
+                        `<button onclick="checkAnswer(${index}, '${opt}', this)">${opt}</button>`
+                    ).join('')}
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        window.checkAnswer = function(qIndex, selected, btn) {
+            const correct = quizData[qIndex].a;
+            const buttons = btn.parentElement.querySelectorAll('button');
+            
+            buttons.forEach(b => b.disabled = true);
+            
+            if (selected === correct) {
+                btn.classList.add('correct');
+                score++;
+            } else {
+                btn.classList.add('wrong');
+                buttons.forEach(b => {
+                    if (b.textContent === correct) b.classList.add('correct');
+                });
+            }
+            
+            answered++;
+            if (answered === quizData.length) {
+                document.getElementById('score').innerHTML = 
+                    `퀴즈 완료!<br>점수: ${score} / 20<br>
+                    ${score >= 18 ? '올..벌칙면제 🎉😍' : score >= 14 ? '뭐해? 안들어가고 😊' : score >= 10 ? '들어 갔다 나와서 벌칙 뽑아 🥳' : '진실의 방으로😎'}`;
+            }
+            setTimeout(() => {
+                html2canvas(document.getElementById('quizContainer'), {scale: 2}).then(canvas => {
+                    const link = document.createElement('a');
+                    link.download = `퀴즈_점수_${score}점.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                });
+            }, 1500);
+        }
+
+        createQuiz();
+    </script>
+</body>
+</html>
